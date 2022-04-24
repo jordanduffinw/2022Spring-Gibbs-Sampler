@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{changepage}
+\usepackage{nicefrac}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage{turnstile}
+\usepackage{epsf,graphicx,psfrag}
+\usepackage{lscape}
+\usepackage{latexsym}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{tcolorbox}
+\usetikzlibrary{calc}
+\usetikzlibrary{trees}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\usepackage{listings}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.05in}
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\V}{\mathbb{V}}
+\DeclareMathOperator{\Pb}{\mathbb{P}}
+
+\DeclareMathOperator{\summ}{\displaystyle \sum_{\textit{i}=1}^{\textit{n}}}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Edit these as appropriate
+\newcommand\course{Gibbs-Sampler}
+\newcommand\name{Moy et al.}
+\newcommand\homeworknumber{}
+\newcommand\term{April 2022}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name}
+\chead{\course:\\Glossary of Terms}
+\rhead{\term}
+\lfoot{}
+\cfoot{\small\thepage}
+\rfoot{}
+\headsep 1.5em
+
+\begin{document}
+This is an abridged version of \textit{Small-area Pubic Opinion Estimation Using Gaussian Process Regression and Post-stratification}, for the convenience of the package team.
+\section{MCMC Sampler}
+Each step of the MCMC sampler:
+\begin{enumerate}[(1)]
+    \item Sample $\omega_{it}^{(t)} \sim \text{PG}(n_{ij}, \mu_{ij}^{(t-1)}) \forall i, j$ where PG($\cdot$) is the P\'olya-Gamma density function from the \texttt{BayesLogit} package. 
+    \begin{itemize}
+        \item $n_{ij}$ is the group of respondents who have profile $i \in 1,\dots, N$ answering survey items $j \in 1, \dots, J$.
+        \item $\mu_{ij} = \theta_{i}\beta_{j} - \alpha_{j}$
+    \end{itemize}
+    \item Sample $\boldsymbol{\Tilde{\beta}} \sim \text{N}(m_{\beta}, V_{\beta})$, with:
+    \begin{itemize}
+        \item $V_{\beta} = (\boldsymbol{\Lambda_{\Tilde{\beta}}} + \boldsymbol{X^{\top}\Omega}_j\boldsymbol{X})^{-1}$
+        \item $m_{\beta} = V_{\beta} (\boldsymbol{X}^{\top}\boldsymbol{\kappa}_j)$
+        \item $\boldsymbol{\Omega}_j = \text{diag} (\{\omega_{ij}^{(t)}\}_{i = 1}^{N})$
+        \item $\boldsymbol{X}$ has rows $\boldsymbol{x}_i = [\theta_{i}^{t-1}, -1]$
+        \item $\boldsymbol{\kappa}_j = [\kappa_{1j}, \dots, \kappa_{nj}]^{\top}$
+        \item $\boldsymbol{\Lambda_{\Tilde{\beta}}} =$ ?
+    \end{itemize}
+    \item Sample $\theta_{i}^{(t)} \sim \text{N}(m_{\theta}, V_{\theta})$, with:
+    \begin{itemize}
+        \item $V_{\theta} = (\sigma_{\theta}^{-2} + \boldsymbol{\beta}^{(t)\top}\boldsymbol{\beta}^{(t)})^{-1}$
+        \item $m_{\theta} = V_{\theta} (f_{i}^{(t-1)} / \sigma_{\theta}^2 + \boldsymbol{\beta}^{(t)\top}\boldsymbol{\Tilde{y}}_i)$
+        \item $\boldsymbol{\Tilde{y}} = [\{\kappa_{ij} / \omega_{ij}^{(t)} + \alpha_{j}^{(t)}\}_{j=1}^{J}]^{\top}$
+    \end{itemize}
+    \item Sample $\textbf{f}^{(t)} \sim \text{N}(m_f, V_f)$, with:
+    \begin{itemize}
+        \item $V_f = \textbf{K}_{\rho} - \textbf{K}_{\rho}(\textbf{K}_{\rho} + \boldsymbol{\Sigma}_{\theta}^{-1})^{-1}\textbf{K}_{\rho}$
+        \item $m_f = \textbf{K}_{\rho}(\textbf{K}_{\rho} + \boldsymbol{\Sigma}_{\theta}^{-1})^{-1}\boldsymbol{\theta}^{(t)}$
+        \item $\textbf{K}_{\rho} = K(\textbf{Z}|\boldsymbol{\rho})$ is an $N \times N$ covariance generated using a kernel computed on a $\textbf{Z}_{N \times D}$ matrix of demographic features
+        \item $\boldsymbol{\Sigma}_{\theta} = \sigma_{\theta}^{2}\textbf{I}$
+    \end{itemize}
+\end{enumerate}
+\end{document}
