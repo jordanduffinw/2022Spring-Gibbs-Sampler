@@ -83,7 +83,7 @@ Each step of the MCMC sampler:
         \item $\boldsymbol{\Omega}_j = \text{diag} (\{\omega_{ij}^{(t)}\}_{i = 1}^{N})$
         \item $\boldsymbol{X}$ has rows $\boldsymbol{x}_i = [\theta_{i}^{t-1}, -1]$
         \item $\boldsymbol{\kappa}_j = [\kappa_{1j}, \dots, \kappa_{nj}]^{\top}$
-        \item $\boldsymbol{\Lambda_{\Tilde{\beta}}} =$ ?
+        \item $\boldsymbol{\Lambda_{\Tilde{\beta}}} = \text{diag} (0.1)$ 
     \end{itemize}
     \item Sample $\theta_{i}^{(t)} \sim \text{N}(m_{\theta}, V_{\theta})$, with:
     \begin{itemize}
@@ -96,7 +96,7 @@ Each step of the MCMC sampler:
         \item $V_f = \textbf{K}_{\rho} - \textbf{K}_{\rho}(\textbf{K}_{\rho} + \boldsymbol{\Sigma}_{\theta}^{-1})^{-1}\textbf{K}_{\rho}$
         \item $m_f = \textbf{K}_{\rho}(\textbf{K}_{\rho} + \boldsymbol{\Sigma}_{\theta}^{-1})^{-1}\boldsymbol{\theta}^{(t)}$
         \item $\textbf{K}_{\rho} = K(\textbf{Z}|\boldsymbol{\rho})$ is an $N \times N$ covariance generated using a kernel computed on a $\textbf{Z}_{N \times D}$ matrix of demographic features
-        \item $\boldsymbol{\Sigma}_{\theta} = \sigma_{\theta}^{2}\textbf{I}$
+        \item $\boldsymbol{\Sigma}_{\theta} = \sigma_{\theta}^{2}\textbf{I} = (1.0) \textbg{I}$
     \end{itemize}
 \end{enumerate}
 \end{document}
