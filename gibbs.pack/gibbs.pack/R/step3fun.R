@@ -31,7 +31,7 @@ setMethod(f = "step3fun",
           definition = function(sigma, beta, f_prior, y){
             # Applying the definition of v_theta
             #betas are current time, t, betas
-            v_theta <- solve( solve(sigma) + (t(beta) %*% beta))
+            v_theta <- solve( (1 / sigma) + (t(beta) %*% beta) )
 
             # Applying the definition of m_theta
             #beta is current time,t, beta
