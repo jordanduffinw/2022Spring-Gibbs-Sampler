@@ -5,7 +5,7 @@
 #' @param X An nx2 matrix with each column x_i = [\theta_i^{t-1},-1]
 #' @param omega An nxn matrix defined as $diag({\omega_{ij}^{(t)}}_{i=1}^N)
 #' @param kappa An nx1 matrix defined as the transpose of the jth row of the \Kappa NxN covariance matrix
-#' @param lambda A 2x2 matrix defined as ???
+#' @param lambda A 2x2 matrix defined as a covariate matrix with diag(0.1)
 #'
 #' @return A 2x1 matrix \hat{\beta_j}:
 #'  \item{\beta_j}{The sampled \beta_j from the distribution calculated from the above information}
