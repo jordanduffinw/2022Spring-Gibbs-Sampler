@@ -1,13 +1,14 @@
-#' step2fun
+#' Sample \tilde{\beta_j} in the second step of the MCMC sampler.
 #'
-#' Runs the second step of the Gibbs sampler, which samples the beta distribution created through the defined m and v once, given the input values
+#' For internal use only. Runs the second step of the Gibbs sampler, which samples the beta distribution
+#' created through the defined m and v once, given the input values
 #'
 #' @param X An nx2 matrix with each column x_i = [\theta_i^{t-1},-1]
-#' @param omega An nxn matrix defined as $diag({\omega_{ij}^{(t)}}_{i=1}^N)
-#' @param kappa An nx1 matrix defined as the transpose of the jth row of the \Kappa NxN covariance matrix
-#' @param lambda A 2x2 matrix defined as a covariate matrix with diag(0.1)
+#' @param w An nx1 matrix defined as {\omega_{ij}^{(t)}}_{i=1}^N
+#' @param k An nx1 matrix defined as the transpose of the jth row of the \Kappa NxN covariance matrix
+#' @param Lambda A 2x2 matrix defined as a covariate matrix with diag(0.1)
 #'
-#' @return A 2x1 matrix \hat{\beta_j}:
+#' @return A 2x1 matrix \tilde{\beta_j}:
 #'  \item{\beta_j}{The sampled \beta_j from the distribution calculated from the above information}
 #' @author Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella
 #' @note Currently still need to verify what exactly lambda is in this, add checks, and run a test
@@ -18,25 +19,26 @@
 #' @aliases step2
 #' @rdname step2fun
 #' @import
-#' @export
+#' @keywords internal
 
-#set the generic for the function
-setGeneric(name = "step2fun",
-           def = function(X, omega, kappa, lambda)
-             {standardGeneric("step2fun")}
-)
 
-#Define the method
-setMethod(f = "step2fun",
-          definition = function(X, omega, kappa, lambda){
-            # Applying the definition of v_beta
-            v_beta <- solve(lambda + (t(X) %*% omega %*% X))
+
+step2fun <- function(X, w, k, Lambda){
+
+            # Store length of w for convenience, equal to number of respondent groups
+            N <- length(w)
+
+            # Turn 1xN jth col vector into diagonal NxN matrix
+            Omega <- diag(w, nrow = N, ncol = N)
+
+            # Applying the definition of V_beta
+            V_beta <- solve(Lambda + (t(X) %*% Omega %*% X))
             # Applying the definition of m_beta
-            m_beta <- v_beta %*% (t(X) %*% kappa)
+            m_beta <- V_beta %*% (t(X) %*% k)
 
             # Attempt at sampling beta from multivariate normal
-            beta_sample <- MASS::mvrnorm(1, mu = m_beta, Sigma = v_beta)
+            beta_tilde <- MASS::mvrnorm(1, mu = m_beta, Sigma = V_beta)
 
-            return(beta_sample)
+            return(beta_tilde)
           }
 )
