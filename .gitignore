@@ -4,7 +4,7 @@
 
 # .Rnw files
 .log
-.syntex.gz
+.synctex.gz
 
 # Session Data files
 .RData
