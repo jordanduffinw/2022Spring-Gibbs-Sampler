@@ -3,8 +3,8 @@
 .Rapp.history
 
 # .Rnw files
-.log
-.synctex.gz
+*.log
+*.synctex.gz
 
 # Session Data files
 .RData
