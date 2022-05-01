@@ -2,7 +2,7 @@
 \usepackage{fullpage}
 \usepackage[top=2cm, bottom=4cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
-\usepackage{lastpage}
+% \usepackage{lastpage}
 \usepackage{enumerate}
 \usepackage{fancyhdr}
 \usepackage{mathrsfs}
@@ -11,9 +11,9 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{mathtools}
-\usepackage{changepage}
-\usepackage{nicefrac}
-
+% \usepackage{changepage}
+% \usepackage{nicefrac}
+\usepackage{array}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
@@ -96,7 +96,50 @@ Each step of the MCMC sampler:
         \item $V_f = \textbf{K}_{\rho} - \textbf{K}_{\rho}(\textbf{K}_{\rho} + \boldsymbol{\Sigma}_{\theta}^{-1})^{-1}\textbf{K}_{\rho}$
         \item $m_f = \textbf{K}_{\rho}(\textbf{K}_{\rho} + \boldsymbol{\Sigma}_{\theta}^{-1})^{-1}\boldsymbol{\theta}^{(t)}$
         \item $\textbf{K}_{\rho} = K(\textbf{Z}|\boldsymbol{\rho})$ is an $N \times N$ covariance generated using a kernel computed on a $\textbf{Z}_{N \times D}$ matrix of demographic features
-        \item $\boldsymbol{\Sigma}_{\theta} = \sigma_{\theta}^{2}\textbf{I} = (1.0) \textbg{I}$
+        \item $\boldsymbol{\Sigma}_{\theta} = \sigma_{\theta}^{2}\textbf{I} = (1.0) \textbf{I}$
     \end{itemize}
 \end{enumerate}
+
+\section{Parameter Names}
+
+{\renewcommand{\arraystretch}{2}%
+\begin{tabular}{|c|c|}
+\hline
+\texttt{beta\_tilde} & $\boldsymbol{\Tilde{\beta}}$  \\
+\hline
+\texttt{V\_beta} & $V_{\beta}$ \\
+\hline
+\texttt{m\_beta} & $m_{\beta}$ \\
+\hline
+\texttt{Omega\_j} & $\boldsymbol{\Omega}_j$ \\
+\hline
+\texttt{X} & $\boldsymbol{X}$ \\
+\hline
+\texttt{kappa\_j} & $\boldsymbol{\kappa}_j$ \\
+\hline
+\texttt{Lambda} & $\boldsymbol{\Lambda_{\Tilde{\beta}}}$ \\
+\hline
+\texttt{V\_theta} & $V_{\theta})$\\
+\hline
+\texttt{sigma2\_theta} & $\sigma_{\theta}^2$ \\
+\hline
+\texttt{m\_theta} & $m_{\theta}$ \\
+\hline
+\texttt{f\_prior} &  $f_{i}^{(t-1)}$ \\
+\hline
+\texttt{y\_tilde} & $\boldsymbol{\Tilde{y}}$ \\
+\hline
+\texttt{f\_t} & $\textbf{f}^{(t)}$ \\
+\hline
+\texttt{V\_f} & $V_f$ \\
+\hline
+\texttt{m\_f} & $m_f$ \\
+\hline
+\texttt{Kappa\_rho} & $\textbf{K}_{\rho}$ \\
+\hline
+\texttt{Sigma\_theta} & $\boldsymbol{\Sigma}_{\theta}$ \\
+\hline
+\end{tabular}
+
+
 \end{document}
