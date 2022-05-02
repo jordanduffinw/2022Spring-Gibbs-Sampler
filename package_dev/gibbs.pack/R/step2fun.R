@@ -1,15 +1,15 @@
 #' Sample \eqn{\tilde{\beta}_j} in the second step of the MCMC sampler.
 #'
-#' For internal use only. Runs the second step of the Gibbs sampler, which samples the beta distribution
-#' created through the defined m and v once, given the input values
+#' For internal use only. Runs the second step of the Gibbs sampler, which samples the
+#' beta distribution created through the defined m and v once, given the input values
 #'
 #' @param X An Nx2 matrix with each row \eqn{x_i = [\theta_i^{t-1},-1]}.
 #' @param w_j A vector of length N, \eqn{\omega_{ij}^{(t)}_{i=1}^N}, corresponding to
 #' item j from the matrix output in Step 1.
 #' @param y_j A vector of length N containing the count of respondents in each unique demographic
 #' profile who responded to item j affirmatively.
-#' @param n_j A a vector of length N containing the total number of respondents in each unique demographic
-#' profile who answered item j.
+#' @param n_j A a vector of length N containing the total number of respondents
+#' in each unique demographic profile who answered item j.
 #' @param Lambda A scalar, which will be converted into a 2x2 matrix with \code{diag(Lambda)}.
 #' The default is set at 0.1.
 #'
