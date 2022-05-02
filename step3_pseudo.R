@@ -1,18 +1,18 @@
 
-step3fun <- function(sigma, beta, f_prior, y){
+step3fun <- function(sigma2_theta=1, beta_tilde, f_prior, y_tilde){
   
-  # Applying the definition of v_theta
+  # Applying the definition of V_theta
   #betas are current time, t, betas
-  v_theta <- solve( solve(sigma) + (t(beta) %*% beta))
+  V_theta <- solve(solve(sigma2_theta) + (t(beta_tilde) %*% beta_tilde))
   
   # Applying the definition of m_theta
   #beta is current time,t, beta
   #f_prior is the prior time's f, f^(t-1)
-  m_theta <- v_theta %*% ((f_prior %/% sigma) + (t(beta) %*% y))
+  m_theta <- V_theta %*% ((f_prior %/% sigma2_theta) + (t(beta_tilde) %*% y_tilde))
   
   # Attempt at sampling theta from multivariate normal distribution
   #Note the Sigma here is not the same as the sigma argument
-  theta_sample <- MASS::mvrnorm(n, mu = m_theta, Sigma = v_theta)
+  theta_sample <- MASS::mvrnorm(n, mu = m_theta, Sigma = V_theta)
   
   return(theta_sample)
   
