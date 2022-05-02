@@ -105,15 +105,21 @@ Each step of the MCMC sampler:
 {\renewcommand{\arraystretch}{2}%
 \begin{tabular}{|c|c|}
 \hline
-\texttt{w} & $\omega_{it}^{(t)}$ \\
+\texttt{w\_it} & $\omega_{it}^{(t)}$ \\
+\hline
+\texttt{w} & $\{\omega_{ij}^{(t)}\}_{i = 1}^{N}$\\
+\hline
+\texttt{w\_j} & jth column of $\{\omega_{ij}^{(t)}\}_{i = 1}^{N}$ \\
 \hline
 \texttt{beta\_tilde} & $\boldsymbol{\tilde{\beta}}$  \\
+\hline
+\texttt{beta\_tilde\_j} & $\boldsymbol{\tilde{\beta}}$ for response item $j$  \\
 \hline
 \texttt{V\_beta} & $V_{\beta}$ \\
 \hline
 \texttt{m\_beta} & $m_{\beta}$ \\
 \hline
-\texttt{Omega} & $\boldsymbol{\Omega}_j$ \\
+\texttt{Omega\_j} & $\boldsymbol{\Omega}_j$ \\
 \hline
 \texttt{X} & $\boldsymbol{X}$ \\
 \hline
