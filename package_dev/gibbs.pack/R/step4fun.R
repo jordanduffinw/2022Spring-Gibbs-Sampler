@@ -10,7 +10,7 @@
 #'  multivariate normal distribution.}
 #'
 #' @author Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella
-#' @note I think Alma's question about the output on theta is correct; if it ouptuts a vector of length 2, we get a vector that is
+#' @note I think Alma's question about the output on theta is correct, and will affect the input section here.
 #' @examples
 #'
 #'
