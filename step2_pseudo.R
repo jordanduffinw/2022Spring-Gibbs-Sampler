@@ -1,14 +1,11 @@
 
 
-step2fun <- function(X, w_j, k_j, N, Lambda=0.1){
+step2fun <- function(X, w_j, k_j, Lambda=0.1){
   
-  # Store length of w for convenience, equal to number of respondent groups
-  # N <- length(w_j)
+  # Store number of demographic profiles for convenience
+  N <- length(w_j)
   
-  # Calculate kappa j
-  # k_j <- data.matrix((y_j-n_j)/2)
-  
-  # Turn 1xN jth col vector into diagonal NxN matrix
+  # Turn jth col vector into diagonal NxN matrix
   Omega_j <- diag(w_j, nrow = N, ncol = N)
   
   Lambda <- diag(0.1, nrow = 2, ncol = 2)

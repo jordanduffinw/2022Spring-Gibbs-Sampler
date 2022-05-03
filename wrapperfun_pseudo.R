@@ -31,7 +31,7 @@ beta_tilde_test <- matrix(nrow = items, ncol = 2)
 
 # Use step 2 to sample a beta_tilde for each response item
 for(j in 1:items){
-  beta_tilde_test[j,] <- step2fun(X, omega_mat[,j], kappa[,j], groups)
+  beta_tilde_test[j,] <- step2fun(X, omega_mat[,j], kappa[,j])
 }
 
 # Save as dataframe for informative names

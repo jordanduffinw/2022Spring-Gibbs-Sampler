@@ -1,18 +1,10 @@
 step1fun <- function(y, n, J_items){
-  
-  # Define a matrix y with columns corresponding to affirmative responses to each item,
-  # rows corresponding to each unique demographic profile.
-  # y <- df[ , (ncol(df)-J_items):(ncol(df)-1)]
-  
+
   # Store number of unique demographic profiles and response items for convenience.
   N_groups <- nrow(y)
   
-  # Define a vector n corresponding to total respondents per unique demographic profile
-  # n <- as.data.frame(df[ , ncol(df)])
-  
-  # Define a matrix mu in which each column of y will be divided by the n_i 
+  # Define a matrix pi in which each column of y will be divided by the n_i 
   # corresponding to the appropriate demographic profile--this is the observed probability of y, pi.
-    
   pi <- data.matrix(do.call(cbind, apply(y, 2, function(x){x/n})))
 
   

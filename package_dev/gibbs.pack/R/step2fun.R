@@ -6,10 +6,7 @@
 #' @param X An Nx2 matrix with each row \eqn{x_i = [\theta_i^{t-1},-1]}.
 #' @param w_j A vector of length N, \eqn{\omega_{ij}^{(t)}_{i=1}^N}, corresponding to
 #' item j from the matrix output in Step 1.
-#' @param y_j A vector of length N containing the count of respondents in each unique demographic
-#' profile who responded to item j affirmatively.
-#' @param n_j A a vector of length N containing the total number of respondents
-#' in each unique demographic profile who answered item j.
+#' @param k_j A vector of length N where each element is \eqn{\kappa_{ij} = y_{ij}-n_{ij}/2}.
 #' @param Lambda A scalar, which will be converted into a 2x2 matrix with \code{diag(Lambda)}.
 #' The default is set at 0.1.
 #'
@@ -22,26 +19,23 @@
 #' @examples
 #'
 #'
-#' @seealso step3fun
+#' @seealso GibbsSampler, step1fun, step3fun
 #' @aliases step2
 #' @rdname step2fun
 #' @import
 #' @keywords internal
 
 
+step2fun <- function(X, w_j, k_j, Lambda=0.1){
 
-step2fun <- function(X, w_j, y_j, n_j, Lambda=0.1){
-
-  # Store length of w for convenience, equal to number of respondent groups
+  # Store number of demographic profiles for convenience
   N <- length(w_j)
 
-  # Calculate kappa j
-  k_j <- data.matrix((y_j-n_j)/2)
-
-  # Turn 1xN jth col vector into diagonal NxN matrix
+  # Turn jth col vector of omega into diagonal NxN matrix
   Omega_j <- diag(w_j, nrow = N, ncol = N)
 
-  Lambda <- diag(Lambda, nrow = 2, ncol = 2)
+  # Apply definition of Lambda
+  Lambda <- diag(0.1, nrow = 2, ncol = 2)
 
   # Applying the definition of V_beta
   V_beta <- solve(Lambda + (t(X) %*% Omega_j %*% X))
@@ -54,6 +48,7 @@ step2fun <- function(X, w_j, y_j, n_j, Lambda=0.1){
 
   return(beta_tilde_j)
 }
+
 
 
 
