@@ -85,8 +85,10 @@ setMethod(f="GibbsSampler",
             #### TODO: Replace for loop
             # Use step 3 to sample a theta_i for each demographic profile
             for(i in 1:groups){
-              theta[i,] <- step3fun(beta_tilde, f_prior[i], y_tilde[i,])
+              theta[i,] <- step3fun(beta_tilde$beta, f_prior[i], y_tilde[i,])
             }
+
+            colnames(theta) <- "theta"
 
             #### TODO: Add steps 4 and 5, adjust output accordingly
 

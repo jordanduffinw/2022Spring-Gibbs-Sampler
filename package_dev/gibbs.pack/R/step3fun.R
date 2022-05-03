@@ -4,7 +4,8 @@
 #'  The returned value is a number.
 #'
 #' @param sigma2_theta A scalar, default is set to 1.
-#' @param beta_tilde A Jx2 matrix, or data.frame of Step 2 outputs where each row indexes a response item j.
+#' @param beta_j A Jx1 matrix, or data.frame corresponding to the first column of
+#' \eqn{\tilde{\beta} = [\beta_j, \alpha_j]^T} created in Step 2, where each row indexes a response item j.
 #' @param f_prior_i A single scalar element of the f_prior vector of length N.
 #' @param y_tilde A single row vector of length J, from the matrix given by
 #'  \eqn{[\{\kappa_{ij} / \omega_{ij}^{(t)} + \alpha_{j}^{(t)}\}_{j=1}^{J}]^T}.
@@ -25,22 +26,22 @@
 #' @keywords internal
 
 
-step3fun <- function(beta_tilde, f_prior_i, y_tilde_i, sigma2_theta=1){
+step3fun <- function(beta_j, f_prior_i, y_tilde_i, sigma2_theta=1){
+
 
   # Applying the definition of V_theta
   #betas are current time, t, betas
-  V_theta <- solve((1/sigma2_theta) + (t(as.matrix(beta_tilde)) %*% as.matrix(beta_tilde)))
+  V_theta <- as.numeric(solve((1/sigma2_theta) + (t(as.matrix(beta_j)) %*% as.matrix(beta_j))))
 
   # Applying the definition of m_theta
   #beta is current time,t, beta
   #f_prior is the prior time's f, f^(t-1)
-  m_theta <- V_theta %*% ((f_prior_i / sigma2_theta) + (t(as.matrix(beta_tilde)) %*% matrix(y_tilde_i, byrow=FALSE)))
+  m_theta <- as.numeric(V_theta %*% ((f_prior_i / sigma2_theta) + (t(as.matrix(beta_j)) %*% matrix(y_tilde_i, byrow=FALSE))))
 
   # Attempt at sampling theta from multivariate normal distribution
   #Note the Sigma here is not the same as the sigma argument
-  theta_i <- MASS::mvrnorm(1, mu = m_theta, Sigma = V_theta)
+  theta_i <- rnorm(1, mean = m_theta, sd = sqrt(V_theta))
 
-  # Remove uninformative names
   names(theta_i) <- NULL
 
   return(theta_i)

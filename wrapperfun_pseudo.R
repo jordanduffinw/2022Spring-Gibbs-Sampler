@@ -52,11 +52,12 @@ f_prior <- sample(1:80, groups)
 #### NOTE, sampled thetas currently output as length 2 vectors for each demographic profile, is this correct?
 
 # Initiate empty theta matrix with 2 columns and rows the length number of demographic profiles
-theta_test <- matrix(nrow = groups, ncol = 2)
+theta_test <- matrix(nrow = groups, ncol = 1)
 
 # Use step 3 to sample a theta_i for each demographic profile
 for(i in 1:groups){
-  theta_test[i,] <- step3fun(beta_tilde_test, f_prior[i], y_tilde[i,])
+  theta_test[i,] <- step3fun(beta_tilde_test$beta, f_prior[i], y_tilde[i,])
 }
 
-dim(theta_test)
+colnames(theta_test) <- "theta"
+
