@@ -11,6 +11,7 @@ current.code <- as.package("gibbs.pack")
 load_all(current.code)
 document(current.code)
 check(current.code)
+use_mit_license(current.code)
 
 ?step2fun
 ?step3fun

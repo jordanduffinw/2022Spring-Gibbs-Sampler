@@ -59,3 +59,4 @@ step1fun <- function(y, n, J_items){
 
     }
   }
+}

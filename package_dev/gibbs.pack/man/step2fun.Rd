@@ -3,25 +3,29 @@
 \name{step2fun}
 \alias{step2fun}
 \alias{step2}
-\title{step2fun}
+\title{Sample \eqn{\tilde{\beta}_j} in the second step of the MCMC sampler.}
 \usage{
-step2fun(X, omega, kappa, lambda)
+step2fun(X, w_j, k_j, Lambda = 0.1)
 }
 \arguments{
-\item{X}{An nx2 matrix with each column x_i = [\theta_i^{t-1},-1]}
+\item{X}{An Nx2 matrix with each row \eqn{x_i = [\theta_i^{t-1},-1]}.}
 
-\item{omega}{An nxn matrix defined as $diag({\omega_{ij}^{(t)}}_{i=1}^N)}
+\item{w_j}{A vector of length N, \eqn{\omega_{ij}^{(t)}_{i=1}^N}, corresponding to
+item j from the matrix output in Step 1.}
 
-\item{kappa}{An nx1 matrix defined as the transpose of the jth row of the \Kappa NxN covariance matrix}
+\item{k_j}{A vector of length N where each element is \eqn{\kappa_{ij} = y_{ij}-n_{ij}/2}.}
 
-\item{lambda}{A 2x2 matrix defined as ???}
+\item{Lambda}{A scalar, which will be converted into a 2x2 matrix with \code{diag(Lambda)}.
+The default is set at 0.1.}
 }
 \value{
-A 2x1 matrix \hat{\beta_j}:
- \item{\beta_j}{The sampled \beta_j from the distribution calculated from the above information}
+\eqn{\tilde{\beta}_j}: A vector of length 2 corresponding to
+\eqn{[\beta_j, \alpha_j]^T} for response item j.
+ \item{beta_tilde_j}{The sampled \eqn{\tilde{\beta}_j} from the multivariate normal distribution}
 }
 \description{
-Runs the second step of the Gibbs sampler, which samples the beta distribution created through the defined m and v once, given the input values
+For internal use only. Runs the second step of the Gibbs sampler, which samples the
+beta distribution created through the defined m and v once, given the input values
 }
 \note{
 Currently still need to verify what exactly lambda is in this, add checks, and run a test
@@ -31,8 +35,9 @@ Currently still need to verify what exactly lambda is in this, add checks, and r
 
 }
 \seealso{
-
+GibbsSampler, step1fun, step3fun
 }
 \author{
 Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella
 }
+\keyword{internal}
