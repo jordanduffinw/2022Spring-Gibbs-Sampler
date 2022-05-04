@@ -36,7 +36,7 @@ those containing demographic characteristics and the column of totals described 
 Describe final output mathematically
  \item{\code{final_output_placeholder}}{Practical description}
 
-\eqn{\omega}: An NxJ matrix with elements \eqn{\omega_{ij} \sim PG(n_{ij},\mu_{ij}^{(t-1)})}
+\eqn{\omega} An NxJ matrix with elements \eqn{\omega_{ij} \sim PG(n_{ij},\mu_{ij}^{(t-1)})}
 corresponding to demographic profiles i and response items j.
  \item{w}{The matrix \eqn{\omega} of Polya-Gamma-sampled values}
 }

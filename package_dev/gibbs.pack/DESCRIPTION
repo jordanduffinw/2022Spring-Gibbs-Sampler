@@ -1,12 +1,11 @@
 Package: gibbs.pack
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Metropolis-within-Gibbs Sampler
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella
+Maintainer: Jacob Montgomery <jacob.montgomery@wustl.edu>
+Description: This package allows the user to obtain samples from the full posterior proportional distribution. The samples are repeated until they converge.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2

@@ -1,4 +1,4 @@
-#' Sample \eqn{\omega_{ij} in the first step of the MCMC sampler.
+#' Sample \eqn{\omega_{ij}} in the first step of the MCMC sampler.
 #'
 #' For internal use only. Runs the first step of the Gibbs sampler, which samples
 #' \eqn{\omega_{ij} \sim PG(n_{ij},\mu_{ij}^{(t-1)})} for each unique demographic
@@ -10,7 +10,7 @@
 #' @param n A vector of length N containing total respondents per unique demographic profile.
 #' @param J_items A scalar representing the total number of response items.
 #'
-#' @return  \eqn{\omega}: An NxJ matrix with elements \eqn{\omega_{ij} \sim PG(n_{ij},\mu_{ij}^{(t-1)})}
+#' @return  \eqn{\omega} An NxJ matrix with elements \eqn{\omega_{ij} \sim PG(n_{ij},\mu_{ij}^{(t-1)})}
 #' corresponding to demographic profiles i and response items j.
 #'  \item{w}{The matrix \eqn{\omega} of Polya-Gamma-sampled values}
 #'
