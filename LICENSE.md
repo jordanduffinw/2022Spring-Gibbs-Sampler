@@ -1,7 +1,6 @@
 # MIT License
 
-Copyright (c) 2022 gibbs.pack,Package,What the Package Does (Title Case),0.1.0,Who wrote it,The package maintainer <yourself@somewhere.net>,More about what it does (maybe more than one line)
-Use four spaces when indenting paragraphs within the Description.,What license is it under?,UTF-8,true,7.1.2,/Users/kacquilano/Documents/GitHub/Class/2022Spring-Gibbs-Sampler/package_dev/gibbs.pack
+Copyright (c) 2022 gibbs.pack,Package,Metropolis-within-Gibbs Sampler,0.1.0,Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella,Jacob Montgomery <jacob.montgomery@wustl.edu>,This package allows the user to obtain samples from the full posterior proportional distribution. The samples are repeated until they converge.,MIT + file LICENSE,UTF-8,true,7.1.2,/Users/kacquilano/Documents/GitHub/Class/2022Spring-Gibbs-Sampler/package_dev/gibbs.pack
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
