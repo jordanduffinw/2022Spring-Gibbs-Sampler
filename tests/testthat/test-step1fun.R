@@ -4,7 +4,7 @@ test_that("multiplication works", {
 
 #Used wrapperfun_pseudo.R to get all the objects for these tests.
 #Obejcts from wrapperfun_psuedo.R are: y, n, j
-
+source("wrapperfun_pseudo.R")
 
 test_that("n is correct", {
   expect_equal(nrow(n), nrow(y))
