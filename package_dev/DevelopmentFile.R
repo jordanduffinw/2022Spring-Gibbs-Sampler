@@ -15,3 +15,6 @@ use_mit_license(current.code)
 
 ?step2fun
 ?step3fun
+
+use_test("step1fun")
+test("step1fun")
