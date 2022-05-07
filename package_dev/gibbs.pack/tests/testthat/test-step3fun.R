@@ -38,6 +38,7 @@ test_that("beta_j is a matrix", {
 ####
 ####
 ####
+#Objects created to perform tests for step3fun
 sigma2_theta <- 1
 beta_j <- step2fun(X, w_j, k_j)[1]
-beta_tilde_j <- step2fun(X, w_j, k_j
+beta_tilde_j <- step2fun(X, w_j, k_j)
