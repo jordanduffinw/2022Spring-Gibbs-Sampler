@@ -6,11 +6,11 @@ test_that("multiplication works", {
 #Obejcts from wrapperfun_psuedo.R are: y, n, j
 source("wrapperfun_pseudo.R")
 
-test_that("n is correct", {
+test_that("n has the correct number of rows", {
   expect_equal(nrow(n), nrow(y))
 })
 
-test_that("J_items is correct", {
+test_that("J_items is the correct length", {
   expect_equal(j, ncol(y))
 })
 
