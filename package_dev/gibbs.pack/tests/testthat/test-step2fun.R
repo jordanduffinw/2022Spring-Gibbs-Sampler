@@ -7,6 +7,9 @@ test_that("multiplication works", {
 #Obejcts from wrapperfun_psuedo.R are: y, n, j
 source("wrapperfun_pseudo.R")
 
+w_j <- step1fun(y, n, j)[,1]
+
+
 test_that("X has the correct number of rows", {
   expect_equal(nrow(X), nrow(y))
 })
