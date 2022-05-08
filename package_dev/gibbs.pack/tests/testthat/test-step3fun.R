@@ -28,11 +28,13 @@ test_that("beta_j is the correct length", {
   expect_equal(1, length(beta_j))
 })
 
-test_that("beta_j is a matrix", {
-  expect_equal(TRUE, is.matrix(beta_j))
+test_that("f_prior_i is the correct length", {
+  expect_equal(1, length(f_prior_i))
 })
 
-
+test_that("y_tilde is the correct length", {
+  expect_equal(1, length(f_prior_i))
+})
 
 
 ####
@@ -42,3 +44,7 @@ test_that("beta_j is a matrix", {
 sigma2_theta <- 1
 beta_j <- step2fun(X, w_j, k_j)[1]
 beta_tilde_j <- step2fun(X, w_j, k_j)
+f_prior_i <- f_prior[1]
+#I'm not sure how to get alpha here
+alpha <- c(1:8)
+y_tilde <- k_j/w_j + alpha

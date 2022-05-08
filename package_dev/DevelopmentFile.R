@@ -20,3 +20,5 @@ use_test("step1fun")
 test("step1fun")
 
 use_test("step2fun")
+use_test("step3fun")
+use_test("step4fun")
