@@ -3,12 +3,13 @@
 #' For internal use only. Runs the third step of the Gibbs sampler, which samples \theta_i ideal point
 #' for a unique demographic profile in 1...N.
 #'
-#' @param sigma2_theta A scalar, default is set to 1.
+#'
 #' @param beta_j A Jx1 matrix, or data.frame corresponding to the first column of
 #' \eqn{\tilde{\beta} = [\beta_j, \alpha_j]^T} created in Step 2, where each row indexes a response item j.
 #' @param f_prior_i A single scalar element of the f_prior vector of length N.
-#' @param y_tilde A single row vector of length J, from the matrix given by
+#' @param y_tilde_i A single row vector of length J, from the matrix given by
 #'  \eqn{[\{\kappa_{ij} / \omega_{ij}^{(t)} + \alpha_{j}^{(t)}\}_{j=1}^{J}]^T}.
+#'  @param sigma2_theta A scalar, default is set to 1.
 #'
 #' @return A single scalar, corresponding to \eqn{\theta_i^{(t)}} for a unique demographic profile:
 #'  \item{\code{theta_i}}{The sampled \eqn{\theta_i^{(t)}} from the from the

@@ -7,7 +7,9 @@ test_that("multiplication works", {
 #Obejcts from wrapperfun_psuedo.R are: y, n, j
 source("wrapperfun_pseudo.R")
 
-theta_i <- step3fun(beta_j, f_prior_i, y_tilde_i)
+
+#Create input object K_rho
+K_rho <- matrix(1, nrow = nrow(n), ncol = nrow(n))
 
 test_that("K_rho is of correct type", {
   expect_equal(TRUE, is.matrix(K_rho))
@@ -21,6 +23,10 @@ test_that("K_rho has the correct number of columns", {
   expect_equal(nrow(n), ncol(K_rho))
 })
 
+#create input object theta, from GibbsSampler-method.R, lines 44 and 83
+groups <- nrow(y)
+theta <- matrix(nrow = groups, ncol = 2)
+
 test_that("theta is of correct type", {
   expect_equal(TRUE, is.matrix(theta))
 })
@@ -32,6 +38,9 @@ test_that("theta has the correct number of rows", {
 test_that("theta has the correct number of columns", {
   expect_equal(2, ncol(theta))
 })
+
+#Create step4fun output object f_t
+f_t <- step4fun(K_rho, theta, sigma2_theta = 1)
 
 test_that("f_t is of correct type", {
   expect_equal(TRUE, is.vector(f_t))
@@ -53,4 +62,4 @@ test_that("f_t has the correct number of columns", {
 #Objects created to perform tests for step4fun
 K_rho <- matrix(1, nrow = nrow(n), ncol = nrow(n))
 theta <- cbind(theta_test, theta_test)
-f_t <- step4fun(K_rho, theta)
+
