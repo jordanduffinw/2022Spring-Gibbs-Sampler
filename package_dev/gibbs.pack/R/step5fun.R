@@ -1,8 +1,8 @@
-#' step4fun
+#' Sample \eqn{\rho^{(t)}} in the fifth step of the MCMC sampler.
 #'
-#' Runs the fourth step of the gibbs sampler, in which you sample \eqn{f^{(t)}}.
+#' For internal use only. Runs the fifth step of the Gibbs sampler, which samples \eqn{\rho^{(t)}}.
 #'
-#' @param K_rho An N x N covariance matrix generated using a kernel of demographic features. NOTE: We need to either generate that here, or create a function for that
+#' @param rho_0 An N x N covariance matrix generated using a kernel of demographic features. NOTE: We need to either generate that here, or create a function for that
 #' @param theta An N x 2 matrix, which is the output of the previous step for all i.
 #' @param sigma2_theta A scalar, default is set to 1.
 #'
