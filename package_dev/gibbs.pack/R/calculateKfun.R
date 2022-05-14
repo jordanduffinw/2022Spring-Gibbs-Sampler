@@ -24,7 +24,7 @@
 #' @import
 #' @keywords internal
 #' @export
-calculateK <- function(Z, rho_t){
+calculateKfun <- function(Z, rho_t){
   
   # Divide each column of Z by its corresponding rho
   Z <- do.call(cbind, lapply(1:ncol(Z), function(i){Z[,i]/rho_t[i]}))

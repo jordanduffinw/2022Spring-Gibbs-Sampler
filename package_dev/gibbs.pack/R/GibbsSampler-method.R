@@ -12,6 +12,10 @@
 #' those containing demographic characteristics and the column of totals described above.}
 #' }
 #' @param J A scalar representing the total number of response items.
+#' @param X An Nx2 matrix with rows \eqn{x_i= [\theta_{i}^{t-1}, -1]}
+#' @param rho_prior A vector of length D, the number of demographic features
+#'  making up each profile.
+#' @param f_prior A vector of length N, the number of demographic profiles.
 #'
 #' @return  Describe final output mathematically
 #'  \item{\code{final_output_placeholder}}{Practical description}
@@ -34,19 +38,24 @@ setGeneric(name="GibbsSampler",
 #'
 #' @export
 setMethod(f="GibbsSampler",
-          definition=function(df, J){
+          definition=function(df, J, X, rho_prior, f_prior){
 
-            y <- df[ , (ncol(df)-4):(ncol(df)-1)]
-            # and total respondents per demographic profile
-            n <- as.data.frame(df[ , ncol(df)])
-
-            # Store number of demographic groups and response items for convenience
+            ## Important numbers:
+            # store number of demographic groups,
             groups <- nrow(y)
+            # number of demographic features,
+            dem_features <- (ncol(df)-1)-J
+            # and response items for convenience
             items <- J
 
-            #### TODO: Replace with true definition
-            # Create a fake X matrix; revisit when we figure out how to do this
-            X <- matrix(c(c(1,2,3,4,5,6,7,8), rep(-1, 8)), byrow = FALSE,nrow = 8,ncol = 2)
+            ## Important datasets:
+            # store affirmative responses to each survey item,
+            y <- df[ , (ncol(df)-J):(ncol(df)-1)]
+            # total respondents per demographic profile,
+            n <- as.data.frame(df[ , ncol(df)])
+            # and matrix of demographic features and groups
+            Z <- df[ , 1:N_dem_features]
+
 
             # Use step 1 to output omega matrix
             omega <- step1fun(y, n, items)
@@ -74,13 +83,8 @@ setMethod(f="GibbsSampler",
             # This divides, elementwise, kappa_{ij}/omega_{ij}. Then, to each item in the jth column, adds the jth item in the alpha component of beta_tilde
             y_tilde <- do.call(cbind, lapply(1:4,function(j){(kappa * (1/omega))[,j] + beta_tilde$alpha[j]}))
 
-            #### TODO: Replace with true definition
-            # Create a fake f_prior vector; revisit when we figure out how to do this
-            f_prior <- sample(1:80, groups)
 
-            #### TODO: Sampled thetas currently output as length 2 vectors for each demographic profile, is this correct?
-            # Initiate empty theta matrix with 2 columns and rows the length number of demographic profiles
-            theta <- matrix(nrow = groups, ncol = 2)
+            theta <- matrix(nrow = groups, ncol = 1)
 
             #### TODO: Replace for loop
             # Use step 3 to sample a theta_i for each demographic profile
@@ -90,8 +94,18 @@ setMethod(f="GibbsSampler",
 
             colnames(theta) <- "theta"
 
-            #### TODO: Add steps 4 and 5, adjust output accordingly
+            K_rho <- calculateKfun(Z, rho_prior)
 
+            f_t <- step4fun(K_rho, theta)
+
+
+            #### TODO: Sample rho_t with mvrnorm here
+
+            K_rho_t <- calculateKfun(Z, rho_t)
+
+            #### TODO: Calculate pi here
+
+            #### TODO: Figure out what to output
             return(theta)
           }
 )

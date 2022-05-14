@@ -1,9 +1,9 @@
 #' step4fun
 #'
-#' Runs the fourth step of the gibbs sampler, in which you sample \eqn{f^{(t)}}.
+#' Runs the fourth step of the Gibbs Sampler, in which you sample \eqn{f^{(t)}}.
 #'
 #' @param K_rho An N x N covariance matrix generated using a kernel of demographic features. NOTE: We need to either generate that here, or create a function for that
-#' @param theta An N x 2 matrix, which is the output of the previous step for all i.
+#' @param theta A vector of length N containing the ideal point of each demographic profile group.
 #' @param sigma2_theta A scalar, default is set to 1.
 #'
 #' @return A 1x? vector \eqn{f^{(t)}}:
@@ -11,7 +11,6 @@
 #'  multivariate normal distribution.}
 #'
 #' @author Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella
-#' @note I think Alma's question about the output on theta is correct, and will affect the input section here.
 #' @examples
 #'
 #'
