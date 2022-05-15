@@ -2,11 +2,11 @@
 #'
 #' Runs the fourth step of the Gibbs Sampler, in which you sample \eqn{f^{(t)}}.
 #'
-#' @param Z An NxD matrix where rows represent each unique demographic profile, 
-#' and columns represent the distinct demographic features that make up each 
+#' @param Z An NxD matrix where rows represent each unique demographic profile,
+#' and columns represent the distinct demographic features that make up each
 #' profile.
 #' @param rho A vector of length D, drawn from the multivariate normal.
-#' distribution in the previous step.#' @param theta A vector of length N containing the ideal point of each demographic profile group.
+#' distribution in the previous step.#'
 #' @param theta A vector of length N containing the ideal point of each demographic profile group.
 #' @param sigma2_theta A scalar, default is set to 1.
 #'
@@ -26,9 +26,9 @@
 
 
 step4fun <- function(Z, rho, theta, sigma2_theta=1){
-  
+
   K_rho <- calculateKfun(Z, rho)
-  
+
   #storing n
   n <- nrow(K_rho)
 
