@@ -1,48 +1,44 @@
-#' Sample \eqn{\rho^{(t)}} in the fifth step of the MCMC sampler.
+#' Step 5: Sample the log hyperparameter \eqn{\rho_t}}
 #'
-#' For internal use only. Runs the fifth step of the Gibbs sampler, which samples \eqn{\rho^{(t)}}.
+#' For internal use only. Runs the first part of the fifth step of the Gibbs sampler, which samples \eqn{l\rho^*}}.
 #'
-#' @param rho_0 An N x N covariance matrix generated using a kernel of demographic features. NOTE: We need to either generate that here, or create a function for that
-#' @param theta An N x 2 matrix, which is the output of the previous step for all i.
-#' @param sigma2_theta A scalar, default is set to 1.
+#' @param Z An NxD matrix where rows represent each unique demographic profile, 
+#' and columns represent the distinct demographic features that make up each 
+#' profile.
+#' @param rho_lag A vector of length D that denotes the scale-length hyperparameter of each feature/covariate in period t-1. 
+#' @param Sigma_rho A matrix of d*d that denotes the covariance of the proposal (or jumping) density.
+#' @param a,b The parameters that define the inverse-gamma distribution of the hyperpriors \eqn{\rho}.
 #'
-#' @return A 1x? vector \eqn{f^{(t)}}:
-#'  \item{\eqn{f^{(t)}}{The sampled \eqn{f^{(t)}} from the from the
-#'  multivariate normal distribution.}
+#' @return  A vector of length D \eqn{\rho_t}}, with each element denoting the hyperparameter of each feature/covariate in period t.
 #'
 #' @author Jacob Montgomery, Bryant Moy, Noa Dasanaike, Santiago Olivella
-#' @note I think Alma's question about the output on theta is correct, and will affect the input section here.
+#' @note Let's see what we need here. 
 #' @examples
 #'
 #'
-#' @seealso step1fun, step2fun, step3fun, GibbsSampler-method
-#' @aliases step4
-#' @rdname step4fun
-#' @import
+#' @seealso step1fun, step2fun, step3fun, step4fun, calculateKfun, calculatePartialpifun GibbsSampler-method
+#' @aliases step5_1
+#' @rdname step5fun
+#' @import MASS, kernlab
 #' @keywords internal
 
+#' @export
 
-step4fun <- function(K_rho, theta, sigma2_theta=1){
+library(kernlab)
+step5fun <- function(Z, rho_lag, Sigma_rho, a, b){
 
-  #storing n
-  n <- nrow(K_rho)
+  #5.1 Get lrho
+  D <- length(rho_lag)
+  lrho <- MASS::mvrnorm(1, mu = rho_lag, Sigma = Sigma_rho)
 
-  #calculating Sigma_theta for the calculation of m_f
-  Sigma_theta <- sigma2_theta*diag(n)
-
-  #Applying the definition of V_f
-  V_f <- K_rho - K_rho %*%  solve(K_rho + solve(Sigma_theta)) %*% K_rho
-
-  # Applying the definition of m_f
-  m_f <- K_rho %*% solve(K_rho + solve(Sigma_theta))%*% theta
-
-  # Attempt at sampling theta from multivariate normal distribution
-  #Note the Sigma here is not the same as the sigma argument
-  f_t <- MASS::mvrnorm(1, mu = m_f, Sigma = V_f)
-
-  # Remove uninformative names
-  names(f_t) <- NULL
-
-  return(f_t)
-
+  #5.2 Get the kernel
+  K_rho_lag <- calculateKfun(Z, rho_lag)
+  K_lrho <- calculateKfun(Z, lrho)
+  
+  pi_exp_lrho <- calculateParitalpifun(Z, lrho, a, b)
+  pi_exp_rho_lag <- calculateParitalpifun(Z, rho_lag, a, b)
+  
+  r <- pi_exp_lrho / pi_exp_rho_lag
+  rho <- r^(exp(lrho)) * (1-r)^(rho_lag)
+  return(rho)
 }

@@ -7,7 +7,7 @@
 #' @param Z An NxD matrix where rows represent each unique demographic profile, 
 #' and columns represent the distinct demographic features that make up each 
 #' profile.
-#' @param rho_t A vector of length D, drawn from the multivariate normal 
+#' @param rho A vector of length D, drawn from the multivariate normal 
 #' distribution in the previous step.
 #'
 #' @return  \eqn{K} An NxN matrix 
@@ -20,18 +20,21 @@
 #'
 #' @seealso step3fun, step4fun
 #' @aliases calculateK
-#' @rdname calculateK
-#' @import
+#' @rdname calculateKfun
+#' @import kernlab
 #' @keywords internal
 #' @export
-calculateKfun <- function(Z, rho_t){
+
+calculateKfun <- function(Z, rho){
   
   # Divide each column of Z by its corresponding rho
-  Z <- do.call(cbind, lapply(1:ncol(Z), function(i){Z[,i]/rho_t[i]}))
+  Z <- do.call(cbind, lapply(1:ncol(Z), function(i){Z[,i]/rho[i]}))
   
   # Calculate squared exponential kernel  
-  rbf <- rbfdot(sigma=1)
-  K <-kernelMatrix(kernel=rbf, as.matrix(Z))
+  rbf <- kernlab::rbfdot(sigma=0.5)
+  K <- kernlab::kernelMatrix(kernel=rbf, as.matrix(Z))
   
   return(K)
 }
+
+

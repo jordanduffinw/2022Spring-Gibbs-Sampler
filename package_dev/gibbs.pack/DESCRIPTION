@@ -7,5 +7,10 @@ Maintainer: Jacob Montgomery <jacob.montgomery@wustl.edu>
 Description: This package allows the user to obtain samples from the full posterior proportional distribution. The samples are repeated until they converge.
 License: MIT + file LICENSE
 Encoding: UTF-8
+Imports:
+    BayesLogit,
+    MASS,
+    kernlab,
+    invgamma
 LazyData: true
 RoxygenNote: 7.1.2
