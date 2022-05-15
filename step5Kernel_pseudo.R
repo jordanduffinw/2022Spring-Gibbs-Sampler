@@ -16,11 +16,11 @@ N_dem_features <- (ncol(df)-1)-N_survey_items
 # Define Z as just the demographic part of the data
 test_Z <- df[ , 1:N_dem_features]
 # In practice this vector is a sample from mvrnorm, drawn in the previous step
-test_rho <- sample(1:20, N_dem_features)
-
+test_rho <- invgamma::rinvgamma(N_dem_features, 4)
+test_rho <- runif(N_dem_features, min=0, max=3)
 
 ### Actual function
-calculateK <- function(Z_profiles, rho_t){
+calculateKfun <- function(Z_profiles, rho_t){
   
   # Divide each column of Z by its corresponding rho
   Z_profiles <- do.call(cbind, lapply(1:ncol(Z_profiles), function(i){Z_profiles[,i]/rho_t[i]}))
@@ -33,7 +33,7 @@ calculateK <- function(Z_profiles, rho_t){
 }
 
 # This should be an 8x8 matrix since the simulated data has 8 profiles
-calculateK(test_Z, test_rho)
+calculateKfun(test_Z, test_rho)
 
 
 calculateParitalpifun <- function(Z, rho, a, b){
