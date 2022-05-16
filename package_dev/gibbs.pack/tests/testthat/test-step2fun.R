@@ -8,7 +8,7 @@ test_that("multiplication works", {
 source("wrapperfun_pseudo.R")
 
 #create w_j for step2fun input
-w_j <- step1fun(y, n, j)[,1]
+#w_j <- step1fun(y, n, j)[,1]
 
 
 test_that("X has the correct number of rows", {
@@ -22,7 +22,7 @@ test_that("w_j is the correct length", {
 #create k_j for step2fun input
 #k_j is "A vector of length N where each element is \eqn{\kappa_{ij} = y_{ij}-n_{ij}/2}"
 #Also note that k_j is (y-n)/2 and not y-(n/2)
-k_j <- as.vector(unlist((y[,1] - n)/2))
+#k_j <- as.vector(unlist((y[,1] - n)/2))
 
 test_that("k_j is a vector", {
   expect_equal(TRUE, is.vector(k_j))
@@ -39,7 +39,7 @@ test_that("k_j has the correct values", {
 })
 
 #Create Lambda as an input for step2fun
-Lambda <- 0.1
+#Lambda <- 0.1
 
 test_that("Lambda is correct value", {
   expect_equal(Lambda, 0.1)
