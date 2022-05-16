@@ -19,7 +19,7 @@ test_that("Z has the correct number of columns", {
   expect_equal(ncol(Z), D)
 })
 
-f <- step4fun(Z, rho, theta, sigma2_theta = 1 )
+#f <- step4fun(Z, rho, theta, sigma2_theta = 1 )
 
 test_that("f is a vector", {
   expect_equal(TRUE, is.vector(f))

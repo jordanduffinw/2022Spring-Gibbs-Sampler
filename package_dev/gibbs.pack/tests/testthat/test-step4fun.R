@@ -29,8 +29,8 @@ test_that("rho has the correct length", {
 
 
 #create input object theta, from GibbsSampler-method.R, lines 44 and 83
-groups <- nrow(y)
-theta <- matrix(nrow = groups, ncol = 2)
+#groups <- nrow(y)
+#theta <- matrix(nrow = groups, ncol = 2)
 
 test_that("theta is of correct type", {
   expect_equal(TRUE, is.matrix(theta))
@@ -45,7 +45,7 @@ test_that("theta has the correct number of columns", {
 })
 
 #Create step4fun output object f_t
-f_t <- step4fun(Z, rho, theta, sigma2_theta = 1)
+#f_t <- step4fun(Z, rho, theta, sigma2_theta = 1)
 
 test_that("f_t is of correct type", {
   expect_equal(TRUE, is.vector(f_t))
