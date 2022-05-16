@@ -2,6 +2,8 @@
 source('step1_pseudo.R')
 source('step2_pseudo.R')
 source('step3_pseudo.R')
+source('step4_pseudo.R')
+source('step5Kernel_pseudo.R')
 
 # Read in simulated data; test tibbles and data.frames
 # df_group <- as_tibble(read.csv("df_group.csv"))
@@ -16,6 +18,9 @@ n <- as.data.frame(df_group[ , ncol(df_group)])
 # Store number of demographic groups and response items for convenience
 groups <- nrow(y)
 items <- ncol(y) # Will be a user input in the real function
+dem_features <- (ncol(df_group)-1)-items
+
+Z <- df_group[ , 1:dem_features]
 
 # Create a fake X matrix; revisit when we figure out how to do this
 X <- matrix(c(c(1,2,3,4,5,6,7,8), rep(-1, 8)), byrow = FALSE,nrow = 8,ncol = 2)
@@ -61,3 +66,13 @@ for(i in 1:groups){
 
 colnames(theta_test) <- "theta"
 
+test_rho <- runif(dem_features, min=0, max=3)
+
+test_f <- step4fun(Z, test_rho, theta_test)
+
+test_Sigma_rho <- diag(0.0001,3,3)
+
+a <-2 
+b <-3
+
+rho_t <- step5fun(Z, test_f, test_rho, test_Sigma_rho, a, b)

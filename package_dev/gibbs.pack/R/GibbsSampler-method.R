@@ -16,7 +16,9 @@
 #' @param rho_prior A vector of length D, the number of demographic features
 #'  making up each profile.
 #' @param f_prior A vector of length N, the number of demographic profiles.
-#'
+#' @param Sigma_rho A matrix of d*d that denotes the covariance of the proposal (or jumping) density.
+#' @param a,b The parameters that define the inverse-gamma distribution of the hyperpriors \eqn{\rho}.
+#' Defaults are set at 2 and 1, respectively, for now.
 #' @return  Describe final output mathematically
 #'  \item{\code{final_output_placeholder}}{Practical description}
 #'
@@ -38,7 +40,7 @@ setGeneric(name="GibbsSampler",
 #'
 #' @export
 setMethod(f="GibbsSampler",
-          definition=function(df, J, X, rho_prior, f_prior){
+          definition=function(df, J, X, rho_prior, f_prior, Sigma_rho, a=2, b=1){
 
             ## Important numbers:
             # store number of demographic groups,
@@ -98,14 +100,11 @@ setMethod(f="GibbsSampler",
 
             f_t <- step4fun(K_rho, theta)
 
-
-            #### TODO: Sample rho_t with mvrnorm here
-
-            K_rho_t <- calculateKfun(Z, rho_t)
-
-            #### TODO: Calculate pi here
+            rho_t <- step5fun(Z, f_t, rho_prior, Sigma_rho, a, b)
 
             #### TODO: Figure out what to output
-            return(theta)
+            outputs <- list(...)
+
+            return(outputs)
           }
 )
